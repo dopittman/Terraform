@@ -12,8 +12,11 @@ file = resource
 
 resource "local_file" "pet" {
     filename = var.filename
-    content = var.content
+    content = "My favorite pet is ${random_pet.my-pet.id}"
     file_permission = var.file_permission
+     # already has an implicit dependency on the local_file.pet resource but we can also add an explicit dependency
+    depends_on = [random_pet.my-pet]
+
 }
 
 resource "random_pet" "my-pet" {
